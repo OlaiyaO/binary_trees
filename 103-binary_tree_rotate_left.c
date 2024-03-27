@@ -4,7 +4,7 @@
  * binary_tree_rotate_left - Rotates a binary tree to the left.
  * @tree: Pointer to the tree node of the tree.
  *
- * Returns: Pointer to the new tree node after rotation.
+ * Return: Pointer to the new tree node after rotation.
  */
 
 binary_tree_t *binary_tree_rotate_left(binary_tree_t *tree)
