@@ -89,7 +89,7 @@ void pop_queue(lvlorder_queue_t **front)
  * binary_tree_is_complete - Checks if a binary tree is complete.
  * @tree: Pointer to the root node of the tree.
  *
- * Returns: 1 if the tree is complete, 0 otherwise or if tree is NULL.
+ * Return: 1 if the tree is complete, 0 otherwise or if tree is NULL.
  *
  * Notes: Exits with status code 1 on malloc failure.
  */
