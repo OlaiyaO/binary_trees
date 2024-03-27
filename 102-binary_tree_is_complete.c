@@ -11,7 +11,7 @@ int binary_tree_is_complete(const binary_tree_t *tree);
  * create_node - Creates a new node for a level-order queue.
  * @node: The binary tree node to be contained in the new node.
  *
- * Returns: A pointer to the new node, or NULL on error.
+ * Return: A pointer to the new node, or NULL on error.
  */
 
 
