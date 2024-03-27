@@ -53,7 +53,7 @@ void preorder_traversal(heap_t *tree, heap_t **last_node, size_t height)
 	if (tree == NULL)
 		return;
 
-	if (height == NULL)
+	if (!height)
 		*last_node = tree;
 	height--;
 
