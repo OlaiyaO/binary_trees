@@ -3,20 +3,20 @@
 /**
  * heapify_up - Maintains the Max Heap property by swapping values upwards.
  *
- * @new: The newly inserted node.
+ * @new_node: The newly inserted node.
  *
- * Return: The pointer to the new root of the heap.
+ * Return: The pointer to the new_node root of the heap.
  */
-void heapify_up(heap_t *new)
+void heapify_up(heap_t *new_node)
 {
 	int tmp;
 
-	while (new->parent && new->n > new->parent->n)
+	while (new_node->parent && new_node->n > new_node->parent->n)
 	{
-		tmp = new->n;
-		new->n = new->parent->n;
-		new->parent->n = tmp;
-		new = new->parent;
+		tmp = new_node->n;
+		new_node->n = new_node->parent->n;
+		new_node->parent->n = tmp;
+		new_node = new_node->parent;
 	}
 }
 
@@ -30,29 +30,40 @@ void heapify_up(heap_t *new)
  */
 heap_t *heap_insert(heap_t **root, int value)
 {
-	heap_t *tree, *new;
-	int size, leaves, sub, bit, level;
+	heap_t *tree, *new_node, *flip;
+	int size, remaining_leaves, subtree_size, mask, current_level, tmp;
 
 	if (root == NULL)
 		return (NULL);
-	if ((*root) == NULL)
+	if (!(*root))
 		return (*root = binary_tree_node(NULL, value));
 	tree = *root;
 	size = binary_tree_size(tree);
-	leaves = size;
+	remaining_leaves = size;
+	
+	for (current_level = 0, subtree_size = 1;
+			remaining_leaves >= subtree_size;
+			subtree_size *= 2,
+			current_level++)
+		
+		remaining_leaves -= subtree_size;
 
-	for (level = 0, sub = 1; leaves >= sub; sub *= 2, level++)
-		leaves -= sub;
+	for (mask = 1 << (current_level - 1); mask != 1; mask >>= 1)
+		tree = remaining_leaves & mask ? tree->right : tree->left;
 
-	for (bit = 1 << (level - 1); bit != 1; bit >>= 1)
-		tree = leaves & bit ? tree->right : tree->left;
+	new_node = binary_tree_node(tree, value);
+	remaining_leaves & 1 ? (tree->right = new_node) : (tree->left = new_node);
 
-	new = binary_tree_node(tree, value);
-	leaves & 1 ? (tree->right = new) : (tree->left = new);
+	flip = new_node;
+	for (; flip->parent && (flip->n > flip->parent->n); flip = flip->parent)
+	{
+		tmp = flip->n;
+		flip->n = flip->parent->n;
+		flip->parent->n = tmp;
+		new_node = new_node->parent;
+	}
 
-	heapify_up(new);
-
-	return (new);
+	return (new_node);
 }
 
 /**
