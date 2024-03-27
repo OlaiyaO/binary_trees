@@ -18,14 +18,18 @@ int is_max_heap(const binary_tree_t *tree)
 	if (tree->left == NULL && tree->right == NULL)
 		return (1);
 
-	if (tree->left && tree->n < tree->left->n)
-		return (0);
-
-	if (tree->right && tree->n < tree->right->n)
-		return (0);
-
-	left_check = is_max_heap(tree->left);
-	right_check = is_max_heap(tree->right);
+	if (tree->left != NULL)
+	{
+		if (tree->n <= tree->left->n)
+			return (0);
+		left_check = is_max_heap(tree->left);
+	}
+	if (tree->right != NULL)
+	{
+		if (tree->n <= tree->right->n)
+			return (0);
+		right_check = is_max_heap(tree->right);
+	}
 
 	return (left_check && right_check);
 }
