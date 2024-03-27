@@ -15,23 +15,23 @@ void create_avl_tree(avl_t **node, int *array, size_t size, int mode)
 	if (size == 0)
 		return;
 
-	size_t middle = (size / 2);
+	size_t pivot = (size / 2);
 
-	middle = (size % 2 == 0) ? middle - 1 : middle;
+	pivot = (size % 2 == 0) ? pivot - 1 : pivot;
 
 	if (mode == 1)
 	{
-		(*node)->left = binary_tree_node(*node, array[middle]);
-		create_avl_tree(&((*node)->left), array, middle, 1);
-		create_avl_tree(&((*node)->left), array + middle + 1,
-				(size - 1 - middle), 2);
+		(*node)->left = binary_tree_node(*node, array[pivot]);
+		create_avl_tree(&((*node)->left), array, pivot, 1);
+		create_avl_tree(&((*node)->left), array + pivot + 1,
+				(size - 1 - pivot), 2);
 	}
 	else
 	{
-		(*node)->right = binary_tree_node(*node, array[middle]);
-		create_avl_tree(&((*node)->right), array, middle, 1);
-		create_avl_tree(&((*node)->right), array + middle + 1,
-				(size - 1 - middle), 2);
+		(*node)->right = binary_tree_node(*node, array[pivot]);
+		create_avl_tree(&((*node)->right), array, pivot, 1);
+		create_avl_tree(&((*node)->right), array + pivot + 1,
+				(size - 1 - pivot), 2);
 	}
 }
 
@@ -40,22 +40,22 @@ void create_avl_tree(avl_t **node, int *array, size_t size, int mode)
  *
  * @array: Input array of integers.
  * @size: Size of the array.
- * Return: Pointer to the root of the AVL tree.
+ * Return: Pointer to the current_node of the AVL tree.
  */
 avl_t *sorted_array_to_avl(int *array, size_t size)
 {
-	avl_t *root = NULL;
+	avl_t *current_node = NULL;
 
 	if (size == 0)
 		return (NULL);
 
-	size_t middle = (size / 2);
+	size_t pivot = (size / 2);
 
-	middle = (size % 2 == 0) ? middle - 1 : middle;
+	pivot = (size % 2 == 0) ? pivot - 1 : pivot;
 
-	root = binary_tree_node(root, array[middle]);
-	create_avl_tree(&root, array, middle, 1);
-	create_avl_tree(&root, array + middle + 1, (size - 1 - middle), 2);
+	current_node = binary_tree_node(current_node, array[pivot]);
+	create_avl_tree(&current_node, array, pivot, 1);
+	create_avl_tree(&current_node, array + pivot + 1, (size - 1 - pivot), 2);
 
-	return (root);
+	return (current_node);
 }
