@@ -40,12 +40,12 @@ heap_t *heap_insert(heap_t **root, int value)
 	tree = *root;
 	size = binary_tree_size(tree);
 	remaining_leaves = size;
-	
+
 	for (current_level = 0, subtree_size = 1;
 			remaining_leaves >= subtree_size;
 			subtree_size *= 2,
 			current_level++)
-		
+
 		remaining_leaves -= subtree_size;
 
 	for (mask = 1 << (current_level - 1); mask != 1; mask >>= 1)
